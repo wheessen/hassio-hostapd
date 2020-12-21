@@ -8,9 +8,11 @@ SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
 ENV LANG C.UTF-8
 
-# Install requirements for add-on
-RUN 'mkdir -P /lib/firmware/rtlwifi;wget https://github.com/lwfinger/rtl8723bu/raw/master/rtl8723bu_nic.bin -O /lib/firmware/rtlwifi/rtl8723bu_nic.bin'
+# Download driver
+ADD https://github.com/lwfinger/rtl8723bu/raw/master/rtl8723bu_nic.bin /lib/firmware/rtlwifi/rtl8723bu_nic.bin
 
+# Install requirements for add-on
+RUN apk update
 
 COPY hostapd.conf /
 COPY interfaces /etc/network/interfaces
